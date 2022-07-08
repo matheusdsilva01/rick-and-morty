@@ -6,7 +6,7 @@ import "./card-episodio.css";
  * Você precisará adicionar as propriedades necessárias para exibir os dados dos episódios
  *
  *
- * @returns Elemento JSX
+ * @returns Elemento tsx
  */
 const CardEpisodio = () => {
   return (
