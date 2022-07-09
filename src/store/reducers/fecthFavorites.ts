@@ -1,6 +1,6 @@
 import { iAction } from "../../interfaces/Redux";
 import { ICharacter } from "../../interfaces/Character";
-import { ADD_FAV, REMOVE_FAV } from "../actions/favorite";
+import { ADD_FAV, REMOVE_FAV, RESET_FAVS } from "../actions/favorite";
 
 const initalState = {
     favoritos: []
@@ -29,6 +29,12 @@ export const fetchFavoritesReducer = (state = initalState, action: iAction) => {
                 favoritos:
                     state.favoritos.filter((fav: ICharacter) => fav.id !== action.payload)
             }
+        case RESET_FAVS:{
+            return {
+                ...state,
+                favoritos: []
+            }
+        }
         default:
             return {
                 ...state

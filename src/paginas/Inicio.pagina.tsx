@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { FormEvent, useEffect, useState } from "react";
 import { fetchCharacterByName, fetchCharactersThunk } from "../store/actions/api";
 import { useSelector } from "../store";
+import { Helmet } from "react-helmet";
 
 /**
  * Esta é a página principal. Aqui você deve ver o painel de filtro junto com a grade de personagens.
@@ -42,23 +43,28 @@ const PaginaInicio = () => {
 
 
   return (
-    <div className="container">
-      <div className="actions">
-        <h3>Catálogo de Personagens</h3>
-        <button className="danger" type="button" onClick={() => {
-          setTitleFilter('')
-          fetchCharacterByName(dispatch, '')
-        }}>Limpar filtros</button>
+    <>
+    <Helmet>
+      <title>Rick and morty</title>
+    </Helmet>
+      <div className="container">
+        <div className="actions">
+          <h3>Catálogo de Personagens</h3>
+          <button className="danger" type="button" onClick={() => {
+            setTitleFilter('')
+            fetchCharacterByName(dispatch, '')
+          }}>Limpar filtros</button>
+        </div>
+        <form onSubmit={searchByNameCharacter}>
+          <Filtros title={titleFilter} handleFilter={handleTitleFilter} />
+        </form>
+        {isFeching ? <p>Carregando...</p> : null}
+        {messageError ? <p>{messageError}</p> : null}
+        <Paginacao page={page} disabledNext={!response.info?.next} onChange={handlePage} />
+        <GradePersonagens characters={response.results} />
+        <Paginacao page={page} disabledNext={!response.info?.next} onChange={handlePage} />
       </div>
-      <form onSubmit={searchByNameCharacter}>
-        <Filtros title={titleFilter} handleFilter={handleTitleFilter} />
-      </form>
-      {isFeching ? <p>Carregando...</p> : null}
-      {messageError ? <p>{messageError}</p> : null}
-      <Paginacao page={page} disabledNext={!response.info?.next} onChange={handlePage} />
-      <GradePersonagens characters={response.results} />
-      <Paginacao page={page} disabledNext={!response.info?.next} onChange={handlePage} />
-    </div>
+    </>
   );
 };
 
