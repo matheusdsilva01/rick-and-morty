@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PaginaInicio />} />
           <Route path="favoritos" element={<PaginaFavoritos />} />
-          <Route path="detalhe" element={<PaginaDetalhe />} />
+          <Route path="detalhe/:id" element={<PaginaDetalhe />} />
         </Routes>
       </BrowserRouter>
     </div>
