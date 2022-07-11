@@ -1,14 +1,15 @@
-import "./Detalhe.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import BotaoFavorito from "../componentes/botoes/botao-favorito.componente";
 import CardEpisodio from "../componentes/episodios/card-episodio.componente";
-import { Helmet } from "react-helmet";
-import { useSelector } from "../store";
 import { ICharacter } from "../interfaces/Character";
-import { useDispatch } from "react-redux";
+import { iEpisode } from "../interfaces/Episode";
+import { useSelector } from "../store";
 import { addFav, removeFav } from "../store/actions/favorite";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import "./Detalhe.css";
 
 /**
  * Esta é a página de detalhes. Aqui você pode mostrar a visão do personagem selecionado junto com a lista de episódios em que ele aparece
@@ -95,56 +96,73 @@ const character = {
   "created": new Date()
 }
 
-// ATENÇÃO:DADOS FAKES PAGINA EM CONSTRUÇÃO!!!!!!!!!!!!
+
 const PaginaDetalhe = () => {
   const [character, setCharacter] = useState<ICharacter>();
+  const [episodios, setEpisodios] = useState<iEpisode[]>();
 
-  const {id} = useParams();
-  
+  const { id } = useParams();
+  const dispatch = useDispatch()
+  const [listEpisodios, setListEpisodios] = useState<string[]>([]);
+  const { favoritos } = useSelector(({ fetchFavorites }) => fetchFavorites);
+  const isFavorite = favoritos.filter((fav: ICharacter) => fav.id === character?.id).length > 0;
+
   useEffect(() => {
     axios.get(`https://rickandmortyapi.com/api/character/${id}`).then(response => {
       setCharacter(response.data);
+      setListEpisodios(sliceEpisodes(response.data.episode));
     })
-  },[id])
+  }, [id])
+  useEffect(() => {
+    if (listEpisodios.length > 0) {
+      axios.get(`https://rickandmortyapi.com/api/episode/${listEpisodios}`).then(response => {
+        response.data.length > 0 ? setEpisodios(response.data) : setEpisodios(Array(response.data))
+      })
+    }
+  }, [listEpisodios])
+  const sliceEpisodes = (episodes: URL[]) => {
+    let episodesList: string[] = [];
+    episodes.map(episode => {
+      episodesList.push(new URL(episode).pathname.split("/")[3])
+    });
+    return episodesList.slice(0, 3);
+  }
 
-  const dispatch = useDispatch()
-
-  const { favoritos } = useSelector(({ fetchFavorites }) => fetchFavorites);
-  const isFavorite = favoritos.filter((fav: ICharacter) => fav.id === character?.id).length > 0;
   const toggleFavorite = () => {
     if (isFavorite) {
       dispatch(removeFav(character?.id))
     } else {
       dispatch(addFav(character && character));
     }
-  } 
+  }
   return (
     <>
-    <Helmet>
-      <title>Rick and morty | Nome</title>
-    </Helmet>
+      <Helmet>
+        <title>Rick and morty | Nome</title>
+      </Helmet>
       <div className="container">
         <h3>Rick Sanchez</h3>
         <div className={"detalhe"}>
           <div className={"detalhe-header"}>
             <img
-              src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-              alt="Rick Sanchez"
+              src={character?.image}
+              alt={character?.name}
             />
             <div className={"detalhe-header-texto"}>
               <p>{character?.name}</p>
               <p>{character?.location.name}</p>
               <p>{character?.gender}</p>
             </div>
-              
+
             <BotaoFavorito isFavorito={isFavorite} onClick={toggleFavorite} id={character ? character.id : 0} />
           </div>
         </div>
         <h4>Lista de episódios em que o personagem apareceu</h4>
         <div className={"episodios-grade"}>
-          <CardEpisodio />
-          <CardEpisodio />
-          <CardEpisodio />
+          {episodios ? episodios.map(({ name, lancamento, episode, id }) => (
+            <CardEpisodio key={id} episode={episode} name={name} lancamento={lancamento} />
+          )) : <p>Esse personagem não tem participação em nenhum episodio</p>
+          }
         </div>
       </div>
     </>

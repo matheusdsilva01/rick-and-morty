@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ICharacter } from "../../interfaces/Character";
 import { useSelector } from "../../store";
 import { addFav, removeFav } from "../../store/actions/favorite";
@@ -20,7 +21,7 @@ interface iCardPersonagemProps {
 
 const CardPersonagem = ({ character }: iCardPersonagemProps) => {
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const { favoritos } = useSelector(({ fetchFavorites }) => fetchFavorites);
 
   const isFavorite = favoritos.filter((fav: ICharacter) => fav.id === character.id).length > 0;
@@ -34,7 +35,7 @@ const CardPersonagem = ({ character }: iCardPersonagemProps) => {
 
 
   return (
-    <div className="card-personagem">
+    <div className="card-personagem" onClick={() => navigate(`/detalhe/${character.id}`)}>
       <img
         src={character.image}
         alt={character.name}
