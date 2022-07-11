@@ -6,7 +6,12 @@ const initialState = {
     messageError: undefined,
     response: {}
 }
-
+/**
+ * Responsavel gereciar chamadas a API e retornar os dados
+ * @param state - estado atual do reducer
+ * @param action - action que será executada
+ * @returns retorna o novo estado do reducer
+ */
 export const fetchApiReducer = (state = initialState, action: iAction) => {
     switch (action.type) {
         case FETCH_START:

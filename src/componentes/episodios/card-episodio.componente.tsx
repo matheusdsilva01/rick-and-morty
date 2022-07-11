@@ -1,19 +1,21 @@
 import "./card-episodio.css";
 
-/**
- * Card para cada episódio na visualização do personagem.
- *
- * Você precisará adicionar as propriedades necessárias para exibir os dados dos episódios
- *
- *
- * @returns Elemento tsx
- */
 interface iCardEpisodioProps {
-  name: string;
-  episode: string;
+  name:       string;
+  episode:    string;
   lancamento: string;
 }
-const CardEpisodio = ({episode, name, lancamento}:iCardEpisodioProps) => {
+/**
+ * Card de episódio
+ * Recebe um episódio e renderiza um card com os dados do episódio
+ * @property {string} name - Nome do episódio
+ * @property {string} episode - Número do episódio
+ * @property {string} lancamento - Data de lançamento
+ * uso:
+ * ``` <CardEpisodio /> ```
+ * @returns Card contendo os dados do episódio
+ */
+const CardEpisodio = ({ episode, name, lancamento }: iCardEpisodioProps) => {
   return (
     <div className="card-episodio">
       <h4>{name}</h4>

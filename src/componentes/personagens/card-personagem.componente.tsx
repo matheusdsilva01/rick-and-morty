@@ -7,18 +7,18 @@ import { addFav, removeFav } from "../../store/actions/favorite";
 import BotaoFavorito from "../botoes/botao-favorito.componente";
 import "./card-personagem.css";
 
-/**
- * Card para cada personagem dentro da grade de personagem.
- *
- * Você precisará adicionar as propriedades necessárias para exibir os dados dos personagens
- *
- *
- * @returns Elemento tsx
- */
 interface iCardPersonagemProps {
   character: ICharacter
 }
 
+/**
+ * Card de personagem
+ * Recebe um personagem e renderiza um card com os dados do personagem
+ * @param character - Personagem
+ * uso:
+ * ``` <CardPersonagem /> ```
+ * @returns Card contendo os dados do personagem
+ */
 const CardPersonagem = ({ character }: iCardPersonagemProps) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
