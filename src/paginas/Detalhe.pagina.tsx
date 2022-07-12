@@ -75,8 +75,7 @@ const PaginaDetalhe = () => {
               <p>Planeta: {character?.origin.name}</p>
               <p>Genero: {character?.gender}</p>
             </div>
-
-            <BotaoFavorito isFavorito={isFavorite} onClick={toggleFavorite} id={character ? character.id : 0} />
+            <BotaoFavorito isFavorito={isFavorite} onClick={toggleFavorite} />
           </div>
         </div>
         <h4>Lista de episódios em que o personagem apareceu</h4>
