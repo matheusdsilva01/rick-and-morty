@@ -10,7 +10,8 @@ export const FETCH_SUCCESS = 'FETCSUCCESS';
  */
 export const fetchCharactersStart = () => {
     return {
-        type: FETCH_START
+        type: FETCH_START,
+        payload: {}
     }
 }
 

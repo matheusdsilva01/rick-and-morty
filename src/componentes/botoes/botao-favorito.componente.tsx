@@ -1,26 +1,25 @@
 import "./botao-favorito.css";
 import Star from '../../assets/star.svg';
 import StarFilled from '../../assets/star-filled.svg';
+import { MouseEvent } from "react";
 
 interface iBotaoFavorito {
   isFavorito: boolean;
-  onClick: (id: number) => void;
-  id: number;
+  onClick: (e: MouseEvent<HTMLDivElement>) => void;
 }
 /**
  * Botao de favorito
  * @property {isFavorito} boolean - Propriedade que indica se o personagem está favorito
- * @property {(id: number) => void} onClick - Função responsavel por marcar ou desmarcar o personagem como favorito
- * @property {id} number - id do personagem
+ * @property {(e) => void} onClick - Função responsavel por marcar ou desmarcar o personagem como favorito
  * uso:
  * ``` <BotaoFavorito /> ```
  * @returns Botão de favorito
  */
-const BotaoFavorito = ({ isFavorito, onClick, id }: iBotaoFavorito) => {
+const BotaoFavorito = ({ isFavorito, onClick}: iBotaoFavorito) => {
   const src = isFavorito ? StarFilled : Star;
 
   return (
-    <div onClick={() => onClick(id)} className="botao-favorito">
+    <div onClick={(e) => onClick(e)} className="botao-favorito">
       <img src={src} alt={"favorito"} />
     </div>
   );

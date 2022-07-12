@@ -1,9 +1,12 @@
 import "./card-episodio.css";
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 interface iCardEpisodioProps {
   name:       string;
   episode:    string;
-  lancamento: string;
+  created:    string;
 }
 /**
  * Card de episódio
@@ -15,13 +18,14 @@ interface iCardEpisodioProps {
  * ``` <CardEpisodio /> ```
  * @returns Card contendo os dados do episódio
  */
-const CardEpisodio = ({ episode, name, lancamento }: iCardEpisodioProps) => {
+const CardEpisodio = ({ episode, name, created }: iCardEpisodioProps) => {
+  const date = new Date(created);
   return (
     <div className="card-episodio">
       <h4>{name}</h4>
       <div>
         <span>{episode}</span>
-        <span>Lançado em: {lancamento}</span>
+        <span>Lançado em: {monthNames[date.getMonth()]} {date.getDate()}, {date.getFullYear()}</span>
       </div>
     </div>
   );

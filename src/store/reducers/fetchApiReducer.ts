@@ -17,7 +17,8 @@ export const fetchApiReducer = (state = initialState, action: iAction) => {
         case FETCH_START:
             return {
                 ...state,
-                isFeching: true
+                isFeching: true,
+                response: action.payload
             }
         case FETCH_ERROR:
             return {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ICharacter } from "../../interfaces/Character";
@@ -25,7 +25,8 @@ const CardPersonagem = ({ character }: iCardPersonagemProps) => {
   const { favoritos } = useSelector(({ fetchFavorites }) => fetchFavorites);
 
   const isFavorite = favoritos.filter((fav: ICharacter) => fav.id === character.id).length > 0;
-  const toggleFavorite = () => {
+  const toggleFavorite = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
     if (isFavorite) {
       dispatch(removeFav(character.id))
     } else {
@@ -42,7 +43,7 @@ const CardPersonagem = ({ character }: iCardPersonagemProps) => {
       />
       <div className="card-personagem-body">
         <span>{character.name}</span>
-        <BotaoFavorito isFavorito={isFavorite} onClick={toggleFavorite} id={character.id} />
+        <BotaoFavorito isFavorito={isFavorite} onClick={(e) => toggleFavorite(e)} />
       </div>
     </div>
   );

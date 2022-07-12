@@ -46,7 +46,7 @@ const PaginaDetalhe = () => {
     episodes.map(episode => {
       episodesList.push(new URL(episode).pathname.split("/")[3])
     });
-    return episodesList.slice(0, 3);
+    return episodesList;
   }
 
   const toggleFavorite = () => {
@@ -56,6 +56,7 @@ const PaginaDetalhe = () => {
       dispatch(addFav(character && character));
     }
   }
+  console.log(episodios)
   return (
     <>
       <Helmet>
@@ -70,9 +71,9 @@ const PaginaDetalhe = () => {
               alt={character?.name}
             />
             <div className={"detalhe-header-texto"}>
-              <p>{character?.name}</p>
-              <p>{character?.location.name}</p>
-              <p>{character?.gender}</p>
+              <p>Nome: {character?.name}</p>
+              <p>Planeta: {character?.origin.name}</p>
+              <p>Genero: {character?.gender}</p>
             </div>
 
             <BotaoFavorito isFavorito={isFavorite} onClick={toggleFavorite} id={character ? character.id : 0} />
@@ -80,8 +81,8 @@ const PaginaDetalhe = () => {
         </div>
         <h4>Lista de episódios em que o personagem apareceu</h4>
         <div className={"episodios-grade"}>
-          {episodios ? episodios.map(({ name, lancamento, episode, id }) => (
-            <CardEpisodio key={id} episode={episode} name={name} lancamento={lancamento} />
+          {episodios ? episodios.map(({ name, created, episode, id }) => (
+            <CardEpisodio key={id} episode={episode} name={name} created={created} />
           )) : <p>Esse personagem não tem participação em nenhum episodio</p>
           }
         </div>
