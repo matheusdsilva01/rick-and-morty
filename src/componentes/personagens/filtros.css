@@ -10,8 +10,16 @@
 }
 
 .filtros input[type="text"]{
+  width: 100%;
   flex-grow: 1;
   padding: 15px 20px; 
   border-radius: 3px;
   border: 1px solid #d0d0d0;
+}
+.container-input {
+  width: 100%;
+  display: flex;
+}
+.container-input button {
+  
 }

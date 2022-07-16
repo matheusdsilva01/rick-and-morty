@@ -1,5 +1,4 @@
 import React from 'react';
-//@ts-ignore
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import './App.css';
 import PaginaInicio from "./paginas/Inicio.pagina";
