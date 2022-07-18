@@ -71,8 +71,12 @@ header > div nav ul li a:hover {
   left: 0;
   background-color: #fff;
   width: 100%;
-  height: 50px;
+  height: 100px;
 }
+.menu-hamburguer.open ul li {
+  text-decoration: underline;
+}
+
 .menu-hamburguer.open button {
   position: absolute;
   top: 10px;

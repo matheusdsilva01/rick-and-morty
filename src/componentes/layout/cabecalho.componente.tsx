@@ -30,9 +30,6 @@ const Cabecalho = () => {
             <li>
               <Link to="/favoritos">Favoritos</Link>
             </li>
-            <li>
-              <Link to="/detalhe/1">Detalhe</Link>
-            </li>
           </ul>
         </nav>
           <button className="toggle-menu" onClick={toggleMenu}>
@@ -47,9 +44,6 @@ const Cabecalho = () => {
             </li>
             <li>
               <Link to="/favoritos">Favoritos</Link>
-            </li>
-            <li>
-              <Link to="/detalhe/1">Detalhe</Link>
             </li>
           </ul>
           <button onClick={toggleMenu}>X</button>
